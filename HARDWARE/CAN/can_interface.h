@@ -3,7 +3,7 @@
 
 #include "sys.h"
 
-#define CAN_FILTER_ID       (0x006f << 13)
+#define CAN_FILTER_ID       (0x00d5 << 13)
 #define CAN_FILTER_MASK     (0x00ff << 13)
 
 #define ONLYONCE       0x00

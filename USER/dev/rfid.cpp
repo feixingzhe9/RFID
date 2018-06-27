@@ -134,45 +134,45 @@ static void upload_rfid_data(can_message_t *rfid_msg, byte *buffer_type, byte *b
 		if (!rfid_msg || !buffer_type || !buffer_key) return;
 	
 		/*uid*/
-		rfid_msg->id = 0x0de02181;
+		rfid_msg->id = 0x1aa02181;
 		rfid_msg->data[0] = 0;
 		memcpy( (void *)&rfid_msg->data[1], mfrc522->uid.uidByte, 4 );
 		rfid_msg->data_len = 5;
 		can.can_send( rfid_msg );
 		delay_ms(10);
 		/*type*/
-		rfid_msg->id = 0x0de02182;
+		rfid_msg->id = 0x1aa02182;
 		rfid_msg->data[0] = 0x40;
 		memcpy( (void *)&rfid_msg->data[1], buffer_type, 7 );
 		rfid_msg->data_len = 8;
 		can.can_send( rfid_msg );
 		delay_ms(10);
-		rfid_msg->id = 0x0de02182;
+		rfid_msg->id = 0x1aa02182;
 		rfid_msg->data[0] = 0x81;
 		memcpy( (void *)&rfid_msg->data[1], buffer_type + 7, 7 );
 		rfid_msg->data_len = 8;
 		can.can_send( rfid_msg );
 		delay_ms(10);
-		rfid_msg->id = 0x0de02182;
+		rfid_msg->id = 0x1aa02182;
 		rfid_msg->data[0] = 0xC2;
 		memcpy( (void *)&rfid_msg->data[1], buffer_type + 14, 2 );
 		rfid_msg->data_len = 3;
 		can.can_send( rfid_msg );
 		delay_ms(10);
 		/*key*/
-		rfid_msg->id = 0x0de02183;
+		rfid_msg->id = 0x1aa02183;
 		rfid_msg->data[0] = 0x40;
 		memcpy( (void *)&rfid_msg->data[1], buffer_key, 7 );
 		rfid_msg->data_len = 8;
 		can.can_send( rfid_msg );
 		delay_ms(10);
-		rfid_msg->id = 0x0de02183;
+		rfid_msg->id = 0x1aa02183;
 		rfid_msg->data[0] = 0x81;
 		memcpy( (void *)&rfid_msg->data[1], buffer_key + 7, 7 );
 		rfid_msg->data_len = 8;
 		can.can_send( rfid_msg );
 		delay_ms(10);
-		rfid_msg->id = 0x0de02183;
+		rfid_msg->id = 0x1aa02183;
 		rfid_msg->data[0] = 0xC2;
 		memcpy( (void *)&rfid_msg->data[1], buffer_key + 14, 2 );
 		rfid_msg->data_len = 3;
