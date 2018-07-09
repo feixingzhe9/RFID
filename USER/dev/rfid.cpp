@@ -18,14 +18,14 @@ static void uart_print_type_and_key(byte *buffer_type, byte *buffer_key);
 
 void rfid_init()
 {		
-		GPIO_InitTypeDef  GPIO_InitStructure;
+//		GPIO_InitTypeDef  GPIO_InitStructure;
 
-		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;				 //PC.4 端口配置
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		 //上拉
-		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
-		GPIO_Init(GPIOC, &GPIO_InitStructure);					 //根据设定参数初始化GPIOC.4
-		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;				 //PC.6 端口配置
-		GPIO_Init(GPIOC, &GPIO_InitStructure);					 //根据设定参数初始化GPIOC.6
+//		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;				 //PC.4 端口配置
+//		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;    //上拉
+//		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//IO口速度为50MHz
+//		GPIO_Init(GPIOC, &GPIO_InitStructure);					 //根据设定参数初始化GPIOC.4
+//		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;				 //PC.6 端口配置
+//		GPIO_Init(GPIOC, &GPIO_InitStructure);					 //根据设定参数初始化GPIOC.6
 
 		SPI_2.begin();
 

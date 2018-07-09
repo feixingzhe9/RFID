@@ -5,7 +5,7 @@
 #include "usart.h"
 #include "hall.h"
 #include "rfid.h"
-#include "super_rfid.h"
+//#include "super_rfid.h"
 #include "can_interface.h"
 
 #define SW_VERSION	"NoahC001M18A005"
@@ -20,7 +20,7 @@ static void init()
 		LED.LED_Init();			     //LED¶Ë¿Ú³õÊ¼»¯
 		hall_init();
 		rfid_init();
-		super_rfid_init();
+//		super_rfid_init();
 		printf("RFID Driver version:%s\r\n", SW_VERSION);
 	  init_exti();
 	
@@ -37,7 +37,7 @@ int main(void)
 	{
 		rfid_task();
 		hall_task();
-		super_rfid_task();
+//		super_rfid_task();
 		
 		delay_ms(10);
 		if (++i >= 10)

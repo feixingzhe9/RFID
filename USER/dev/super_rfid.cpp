@@ -461,25 +461,25 @@ static uint8_t rbuf_tail = 0;
 extern "C" {
 #endif
 	
-void USART3_IRQHandler(void)
-{
-		uint8_t next = (rbuf_head + 1) % UART_RBUF_SIZE;
+//void USART3_IRQHandler(void)
+//{
+//		uint8_t next = (rbuf_head + 1) % UART_RBUF_SIZE;
 
-		if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
-		{
-				if (next != rbuf_tail)
-				{
-						rbuf[rbuf_head] = USART_ReceiveData(USART3);//(USART3->DR);
-						rbuf_head = next;
-				}
-				else
-				{
-						USART_ReceiveData(USART3);
-				}
-    }
-		
-		return;
-}
+//		if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
+//		{
+//				if (next != rbuf_tail)
+//				{
+//						rbuf[rbuf_head] = USART_ReceiveData(USART3);//(USART3->DR);
+//						rbuf_head = next;
+//				}
+//				else
+//				{
+//						USART_ReceiveData(USART3);
+//				}
+//    }
+//		
+//		return;
+//}
 
 #ifdef  __cplusplus
 }
