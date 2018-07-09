@@ -78,7 +78,7 @@ static void upload_hall_data(can_message_t *hall_msg, uint8_t hall_state)
 {
 	  if (!hall_msg) return;
 
-		hall_msg->id = 0x0de02185;
+		hall_msg->id = 0x1aa02185;
 		hall_msg->data[0] = 0;
 		if (hall_state & HALL1_ON)
 		{
