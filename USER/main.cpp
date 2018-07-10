@@ -8,7 +8,7 @@
 //#include "super_rfid.h"
 #include "can_interface.h"
 
-#define SW_VERSION	"NoahC001M18A005"
+//
 
 static void init_exti(void);
 
@@ -38,6 +38,7 @@ int main(void)
 		rfid_task();
 		hall_task();
 //		super_rfid_task();
+        can_protocol();
 		
 		delay_ms(10);
 		if (++i >= 10)
@@ -79,4 +80,5 @@ static void init_exti(void)
   	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   	NVIC_Init(&NVIC_InitStructure); 
 }
+
 

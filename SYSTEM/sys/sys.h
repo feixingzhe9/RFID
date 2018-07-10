@@ -6,6 +6,11 @@
 #endif
 	 
 #include "stm32f10x.h"	 
+     
+//#define SW_VERSION                      "007"
+#define SW_VERSION	"NoahC001M18A007"
+
+     
 
 //0,不支持ucos
 //1,支持ucos

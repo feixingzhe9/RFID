@@ -3,8 +3,51 @@
 
 #include "sys.h"
 
-#define CAN_FILTER_ID       (0x00d5 << 13)
-#define CAN_FILTER_MASK     (0x00ff << 13)
+#define RFID_CAN_MAC_SRC_ID     0xd5
+#define CAN_FILTER_ID           (0x00d5 << 13)
+#define CAN_FILTER_MASK         (0x00ff << 13)
+
+
+
+//////  function id define  //////
+#define CAN_FUN_ID_RESET        0x06
+#define CAN_FUN_ID_WRITE        0x01
+#define CAN_FUN_ID_READ         0x02
+#define CAN_FUN_ID_TRIGGER      0x03
+
+
+//////  source id define  //////
+#define CAN_SOURCE_ID_READ_VERSION      0x01    
+
+#define CAN_SOURCE_ID_CAN_TEST              0x03
+
+
+
+#define CAN_ONE_FRAME_DATA_LENTH    7
+#define CAN_SEG_NUM_MAX             64
+#define CAN_LONG_FRAME_LENTH_MAX    (CAN_ONE_FRAME_DATA_LENTH*CAN_SEG_NUM_MAX)
+
+typedef struct
+{
+    uint32_t can_id;
+    uint32_t start_time; 
+    uint16_t used_len;
+    uint8_t rcv_buf[CAN_LONG_FRAME_LENTH_MAX];   
+}CAN_RCV_BUFFER_T;
+
+typedef uint8_t (*GetOneFreeBufFn)(void);
+typedef uint8_t (*GetTheBufByIdFn)(uint32_t);
+typedef void (*FreeBufFn)(uint8_t);
+
+#define CAN_LONG_BUF_NUM    2
+typedef struct
+{
+    CAN_RCV_BUFFER_T can_rcv_buf[CAN_LONG_BUF_NUM];
+    GetOneFreeBufFn GetOneFreeBuf; 
+    GetTheBufByIdFn GetTheBufById;
+    FreeBufFn FreeBuf;
+}CAN_LONG_BUF_T;
+
 
 #define ONLYONCE       0x00
 #define BEGIAN         0x01
@@ -58,9 +101,9 @@ typedef union
 {
 	struct
 	{
-		uint8_t Data[7];
 		uint8_t SegPolo : 2;
 		uint8_t SegNum  : 6;
+        uint8_t Data[7];
 	} __attribute__ ((packed)) CanData_Struct;
 	uint8_t CanData[8];
 } __attribute__ ((packed)) CAN_DATA_UNION;
@@ -108,6 +151,7 @@ public:
   void can_filter_apply();
   void can_filter_addmask(uint16_t cobid, uint16_t cobid_mask, uint8_t prio);
 	uint8_t can_send(struct can_message_t *m);
+  bool is_can_has_data(void);
   struct can_message_t can_read(void);
   void canAckBack(uint32_t CANx_ID, const uint8_t * const pdata, uint16_t len);
 };
@@ -115,6 +159,7 @@ public:
 uint8_t can_receive();
 
 extern can_interface can;
+extern void can_protocol(void);
 //extern can_interface can(0x66, "500K");
 #endif // CAN_INTERFACE_H
 
