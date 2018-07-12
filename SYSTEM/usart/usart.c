@@ -76,7 +76,7 @@ int GetKey (void)  {
 #if EN_USART1_RX   //如果使能了接收
 //串口1中断服务程序
 //注意,读取USARTx->SR能避免莫名其妙的错误   	
-u8 USART_RX_BUF[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
+u8 USART_RX_BUF_1[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
 //接收状态
 //bit15，	接收完成标志
 //bit14，	接收到0x0d
@@ -148,7 +148,7 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 				if(Res==0x0d)USART_RX_STA|=0x4000;
 				else
 					{
-					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
+					USART_RX_BUF_1[USART_RX_STA&0X3FFF]=Res ;
 					USART_RX_STA++;
 					if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;//接收数据错误,重新开始接收	  
 					}		 
@@ -163,16 +163,16 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 #endif	
 
 #if EN_USART3_RX   //如果使能了接收
-//串口1中断服务程序
+//串口3中断服务程序
 //注意,读取USARTx->SR能避免莫名其妙的错误   	
-u8 USART_RX_BUF[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
+u8 USART_RX_BUF_3[USART_REC_LEN];     //接收缓冲,最大USART_REC_LEN个字节.
 //接收状态
 //bit15，	接收完成标志
 //bit14，	接收到0x0d
 //bit13~0，	接收到的有效字节数目
 u16 USART_RX_STA=0;       //接收状态标记	  
 
-//初始化IO 串口1 
+//初始化IO 串口3
 //bound:波特率
 void uart_init(u32 bound){
 		//GPIO端口设置
@@ -181,7 +181,7 @@ void uart_init(u32 bound){
 		NVIC_InitTypeDef NVIC_InitStructure;
 
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
-		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	//使能USART3，GPIOA时钟
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	//使能USART3，GPIOB时钟
 		USART_DeInit(USART3);  //复位串口1
 		//USART3_TX   PB.10
 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10; //PB.10
@@ -216,7 +216,7 @@ void uart_init(u32 bound){
 		USART_Cmd(USART3, ENABLE);                    //使能串口 
 }
 
-void USART3_IRQHandler(void)                	//串口1中断服务程序
+void USART3_IRQHandler(void)                	//串口3中断服务程序
 {
 	u8 Res;
 #ifdef OS_TICKS_PER_SEC	 	//如果时钟节拍数定义了,说明要使用ucosII了.
@@ -238,7 +238,7 @@ void USART3_IRQHandler(void)                	//串口1中断服务程序
 				if(Res==0x0d)USART_RX_STA|=0x4000;
 				else
 					{
-					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
+					USART_RX_BUF_3[USART_RX_STA&0X3FFF]=Res ;
 					USART_RX_STA++;
 					if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;//接收数据错误,重新开始接收	  
 					}		 

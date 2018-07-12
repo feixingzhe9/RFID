@@ -8,7 +8,6 @@
 //#include "super_rfid.h"
 #include "can_interface.h"
 
-//
 
 static void init_exti(void);
 
